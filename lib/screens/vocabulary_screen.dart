@@ -3,9 +3,9 @@ import 'package:flutter_tts/flutter_tts.dart';
 import 'package:language_learning/app_colors.dart';
 import 'package:language_learning/services/database_helper.dart';
 
-
 class VocabularyScreen extends StatefulWidget {
-  const VocabularyScreen({super.key});
+  final String category; // لاستقبال نوع القسم (Vocabulary أو Grammar أو Phrases)
+  const VocabularyScreen({super.key, required this.category});
 
   @override
   State<VocabularyScreen> createState() => _VocabularyScreenState();
@@ -19,11 +19,10 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
     await flutterTts.speak(text);
   }
 
-  // دالة لحذف الكلمة وتحديث الواجهة
   void _deleteWord(int id) async {
-    // سنضيف دالة الحذف في الـ DatabaseHelper لاحقاً
-    // await DatabaseHelper.instance.deleteWord(id); 
-    setState(() {}); // لإعادة بناء الـ FutureBuilder
+    // تفعيل الحذف الفعلي من قاعدة البيانات
+    await DatabaseHelper.instance.deleteWord(id); 
+    setState(() {}); // إعادة بناء الواجهة لتحديث القائمة
   }
 
   @override
@@ -31,23 +30,30 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('My Vocabulary', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(widget.category, style: const TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
-        // جلب البيانات من قاعدة البيانات
-        future: DatabaseHelper.instance.getAllWords(), 
+        // جلب البيانات بناءً على القسم المختار فقط
+        future: DatabaseHelper.instance.getWordsByCategory(widget.category), 
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text("No words added yet. Start learning!", 
-                style: TextStyle(color: Colors.grey, fontSize: 16)),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.folder_open, size: 80, color: Colors.grey[300]),
+                  const SizedBox(height: 16),
+                  Text("No items in ${widget.category} yet.", 
+                    style: const TextStyle(color: Colors.grey, fontSize: 16)),
+                ],
+              ),
             );
           }
 
@@ -90,10 +96,7 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
                       ),
                       IconButton(
                         icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
-                        onPressed: () {
-                          // تأكيد الحذف
-                          _showDeleteDialog(item['id'], item['word']);
-                        },
+                        onPressed: () => _showDeleteDialog(item['id'], item['word']),
                       ),
                     ],
                   ),
@@ -115,11 +118,9 @@ class _VocabularyScreenState extends State<VocabularyScreen> {
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
           TextButton(
-            onPressed: () async {
-              // سنحتاج لإضافة هذه الدالة في DatabaseHelper
-              // await DatabaseHelper.instance.deleteWord(id);
+            onPressed: () {
+              _deleteWord(id);
               Navigator.pop(context);
-              setState(() {});
             }, 
             child: const Text("Delete", style: TextStyle(color: Colors.red))),
         ],

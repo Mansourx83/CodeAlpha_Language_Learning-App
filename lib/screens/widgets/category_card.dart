@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:language_learning/screens/vocabulary_screen.dart';
+import 'package:language_learning/screens/quiz_screen.dart'; // تأكد من وجود هذا الملف
 
 class CategoryCard extends StatelessWidget {
   final String title;
@@ -24,7 +23,7 @@ class CategoryCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(32), // حواف دائرية كبيرة
+        borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
             color: gradient[0].withOpacity(0.3),
@@ -37,10 +36,19 @@ class CategoryCard extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            if (title == 'Vocabulary') {
+            // منطق التنقل الديناميكي
+            if (title == 'Daily Quiz') {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => VocabularyScreen()),
+                MaterialPageRoute(builder: (context) => const QuizScreen()),
+              );
+            } else {
+              // أي قسم آخر (Vocabulary, Grammar, Phrases) يفتح نفس الشاشة ببيانات مختلفة
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VocabularyScreen(category: title),
+                ),
               );
             }
           },
@@ -66,7 +74,6 @@ class CategoryCard extends StatelessWidget {
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    letterSpacing: 0.5,
                   ),
                 ),
               ],

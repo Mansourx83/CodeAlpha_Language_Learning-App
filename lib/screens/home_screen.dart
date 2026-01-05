@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // قائمة الأقسام
     final List<Map<String, dynamic>> categories = [
       {
         'title': 'Vocabulary',
@@ -32,20 +33,18 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      // داخل Scaffold الخاص بـ HomeScreen
-floatingActionButton: FloatingActionButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddWordScreen()),
-    );
-  },
-  backgroundColor: AppColors.vocab,
-  child: const Icon(Icons.add, color: Colors.white),
-),
       backgroundColor: AppColors.background,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddWordScreen()),
+          );
+        },
+        backgroundColor: AppColors.vocab,
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
       body: SafeArea(
-        
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
@@ -60,7 +59,7 @@ floatingActionButton: FloatingActionButton(
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              Text(
+              const Text(
                 "Lingo Master",
                 style: TextStyle(
                   fontSize: 32,
@@ -69,6 +68,7 @@ floatingActionButton: FloatingActionButton(
                 ),
               ),
               const SizedBox(height: 30),
+
               Expanded(
                 child: GridView.builder(
                   itemCount: categories.length,
