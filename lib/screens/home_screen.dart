@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/app_colors.dart';
+import 'package:language_learning/screens/widgets/add_word_screen.dart';
 import 'package:language_learning/screens/widgets/category_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,8 +32,20 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
+      // داخل Scaffold الخاص بـ HomeScreen
+floatingActionButton: FloatingActionButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddWordScreen()),
+    );
+  },
+  backgroundColor: AppColors.vocab,
+  child: const Icon(Icons.add, color: Colors.white),
+),
       backgroundColor: AppColors.background,
       body: SafeArea(
+        
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(

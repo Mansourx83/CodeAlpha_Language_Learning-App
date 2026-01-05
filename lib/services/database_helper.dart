@@ -17,11 +17,7 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: _createDB,
-    );
+    return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
   Future _createDB(Database db, int version) async {
@@ -35,8 +31,17 @@ class DatabaseHelper {
     ''');
   }
 
+  Future<int> deleteWord(int id) async {
+    final db = await instance.database;
+    return await db.delete('vocabulary', where: 'id = ?', whereArgs: [id]);
+  }
+
   // إضافة كلمة جديدة
-  Future<int> insertWord(String word, String translation, String category) async {
+  Future<int> insertWord(
+    String word,
+    String translation,
+    String category,
+  ) async {
     final db = await instance.database;
     return await db.insert('vocabulary', {
       'word': word,
