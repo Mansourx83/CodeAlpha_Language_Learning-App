@@ -36,6 +36,15 @@ class DatabaseHelper {
     return await db.delete('vocabulary', where: 'id = ?', whereArgs: [id]);
   }
 
+  Future<List<Map<String, dynamic>>> getWordsByCategory(String category) async {
+    final db = await instance.database;
+    return await db.query(
+      'vocabulary',
+      where: 'category = ?',
+      whereArgs: [category],
+    );
+  }
+
   // إضافة كلمة جديدة
   Future<int> insertWord(
     String word,
@@ -53,6 +62,6 @@ class DatabaseHelper {
   // جلب كل الكلمات
   Future<List<Map<String, dynamic>>> getAllWords() async {
     final db = await instance.database;
-    return await db.query('vocabulary');
+    return await db.query('vocabulary', orderBy: 'id DESC');
   }
 }

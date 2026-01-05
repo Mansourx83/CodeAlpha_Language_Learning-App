@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:language_learning/app_colors.dart';
-import 'package:language_learning/screens/widgets/add_word_screen.dart';
+import 'package:language_learning/screens/add_word_screen.dart';
 import 'package:language_learning/screens/widgets/category_card.dart';
 
 class HomeScreen extends StatelessWidget {
