@@ -9,7 +9,7 @@ class DatabaseHelper {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('learning_pro.db'); // اسم جديد لضمان تحديث الجداول
+    _database = await _initDB('lingo_master_v4.db'); // نسخة جديدة للداتا الضخمة
     return _database!;
   }
 
@@ -29,46 +29,171 @@ class DatabaseHelper {
         level TEXT NOT NULL
       )
     ''');
-    
-    // إدخال البيانات الضخمة
     await _seedAllData(db);
   }
 
   Future<void> _seedAllData(Database db) async {
-    final batch = db.batch(); // استخدام Batch لجعل الإدخال سريعاً جداً
+    final batch = db.batch();
 
-    // عينة من كلمات A1 (أساسيات)
+    // ================= LEVEL A1 =================
     _addItems(batch, 'A1', 'Vocabulary', {
-      'Always': 'دائماً', 'Never': 'أبداً', 'Water': 'ماء', 'Food': 'طعام', 
-      'House': 'منزل', 'Family': 'عائلة', 'Small': 'صغير', 'Large': 'كبير'
+      'Water': 'ماء',
+      'Food': 'طعام',
+      'Book': 'كتاب',
+      'House': 'منزل',
+      'Car': 'سيارة',
+      'School': 'مدرسة',
+      'Family': 'عائلة',
+      'Friend': 'صديق',
+      'Teacher': 'مدرس',
+      'Student': 'طالب',
     });
 
-    // عينة من كلمات A2 (حياة يومية)
-    _addItems(batch, 'A2', 'Vocabulary', {
-      'Experience': 'خبرة', 'Education': 'تعليم', 'Healthy': 'صحي', 'Weather': 'طقس',
-      'Travel': 'سفر', 'Medicine': 'دواء', 'Market': 'سوق', 'Possible': 'ممكن'
-    });
-
-    // عينة من كلمات B1 (متوسط)
-    _addItems(batch, 'B1', 'Vocabulary', {
-      'Actually': 'في الحقيقة', 'Opportunity': 'فرصة', 'Improve': 'يتحسن', 'Necessary': 'ضروري',
-      'Environment': 'البيئة', 'Decision': 'قرار', 'Success': 'نجاح', 'Global': 'عالمي'
-    });
-
-    // عينة من جمل (Phrases) للمستويات المختلفة
     _addItems(batch, 'A1', 'Phrases', {
-      'How are you?': 'كيف حالك؟', 'Nice to meet you': 'سعدت بلقائك'
+      'Hello': 'مرحباً',
+      'Good morning': 'صباح الخير',
+      'How are you?': 'كيف حالك؟',
+      'Thank you': 'شكراً',
+      'Nice to meet you': 'تشرفت بمعرفتك',
+    });
+
+    _addItems(batch, 'A1', 'Grammar', {
+      'Verb to be (am/is/are)':
+          'يُستخدم لوصف الحالة أو الاسم | Example: I am a student',
+      'This / That': 'للإشارة للقريب والبعيد | Example: This is my book',
+      'Plural nouns': 'جمع الاسم بإضافة s | Example: books',
+    });
+
+    // ================= LEVEL A2 =================
+    _addItems(batch, 'A2', 'Vocabulary', {
+      'Travel': 'سفر',
+      'Weather': 'طقس',
+      'Holiday': 'عطلة',
+      'Job': 'وظيفة',
+      'Money': 'مال',
+      'Health': 'صحة',
+      'Internet': 'إنترنت',
+      'Restaurant': 'مطعم',
+    });
+
+    _addItems(batch, 'A2', 'Phrases', {
+      'How much is this?': 'بكم هذا؟',
+      'I need help': 'أحتاج مساعدة',
+      'Can you repeat?': 'هل يمكنك الإعادة؟',
+      'I don’t understand': 'لا أفهم',
+    });
+
+    _addItems(batch, 'A2', 'Grammar', {
+      'Present Simple': 'يُستخدم للروتين والحقائق | Example: I work every day',
+      'Past Simple': 'أحداث انتهت في الماضي | Example: I visited Cairo',
+      'There is / There are': 'للتعبير عن وجود شيء | Example: There is a book',
+    });
+
+    // ================= LEVEL B1 =================
+    _addItems(batch, 'B1', 'Vocabulary', {
+      'Experience': 'خبرة',
+      'Decision': 'قرار',
+      'Improve': 'يحسن',
+      'Opportunity': 'فرصة',
+      'Responsibility': 'مسؤولية',
+      'Success': 'نجاح',
+    });
+
+    _addItems(batch, 'B1', 'Phrases', {
+      'In my opinion': 'في رأيي',
+      'For example': 'على سبيل المثال',
+      'As a result': 'كنتيجة لذلك',
+      'I agree with you': 'أتفق معك',
+    });
+
+    _addItems(batch, 'B1', 'Grammar', {
+      'Present Perfect':
+          'لحدث بدأ في الماضي وله تأثير الآن | Example: I have finished',
+      'Comparatives': 'للمقارنة بين شيئين | Example: bigger than',
+      'First Conditional':
+          'احتمال حقيقي في المستقبل | Example: If it rains, I will stay',
+    });
+
+    // ================= LEVEL B2 =================
+    _addItems(batch, 'B2', 'Vocabulary', {
+      'Achievement': 'إنجاز',
+      'Environment': 'بيئة',
+      'Impact': 'تأثير',
+      'Strategy': 'استراتيجية',
+      'Development': 'تطوير',
     });
 
     _addItems(batch, 'B2', 'Phrases', {
-      'In the long run': 'على المدى البعيد', 'Bear in mind': 'ضع في اعتبارك'
+      'On the other hand': 'من ناحية أخرى',
+      'In the long run': 'على المدى البعيد',
+      'To sum up': 'خلاصة القول',
+    });
+
+    _addItems(batch, 'B2', 'Grammar', {
+      'Passive Voice':
+          'يُستخدم عندما يكون الفعل أهم من الفاعل | Example: The book was written',
+      'Reported Speech': 'نقل الكلام | Example: He said he was tired',
+      'Second Conditional':
+          'احتمال غير واقعي | Example: If I were rich, I would travel',
+    });
+
+    // ================= LEVEL C1 =================
+    _addItems(batch, 'C1', 'Vocabulary', {
+      'Perspective': 'وجهة نظر',
+      'Phenomenon': 'ظاهرة',
+      'Significant': 'ملحوظ',
+      'Consequently': 'وبالتالي',
+      'Sustainable': 'مستدام',
+      'Ethical': 'أخلاقي',
+    });
+
+    _addItems(batch, 'C1', 'Phrases', {
+      'From my perspective': 'من وجهة نظري',
+      'It is worth noting that': 'من الجدير بالذكر أن',
+      'In contrast to': 'على النقيض من',
+    });
+
+    _addItems(batch, 'C1', 'Grammar', {
+      'Advanced Conditionals':
+          'جمل شرطية مركبة | Example: If I had known, I would have acted',
+      'Inversion': 'عكس ترتيب الجملة للتأكيد | Example: Never have I seen this',
+      'Participle Clauses':
+          'اختصار الجمل | Example: Knowing the truth, he left',
+    });
+
+    // ================= LEVEL C2 =================
+    _addItems(batch, 'C2', 'Vocabulary', {
+      'Ambiguous': 'غامض',
+      'Meticulous': 'دقيق جدًا',
+      'Profound': 'عميق',
+      'Paradigm': 'نموذج فكري',
+      'Notion': 'مفهوم',
+    });
+
+    _addItems(batch, 'C2', 'Phrases', {
+      'Be that as it may': 'مهما يكن',
+      'In light of the fact that': 'في ضوء حقيقة أن',
+      'It goes without saying': 'من البديهي',
+    });
+
+    _addItems(batch, 'C2', 'Grammar', {
+      'Cleft Sentences':
+          'تقسيم الجملة للتأكيد | Example: It was him who called',
+      'Ellipsis':
+          'حذف كلمات مفهومة | Example: I can play guitar, and she can too',
+      'Subjunctive Mood':
+          'صيغة افتراضية رسمية | Example: I suggest he be present',
     });
 
     await batch.commit(noResult: true);
   }
 
-  // دالة مساعدة لتنظيم الإدخال
-  void _addItems(Batch batch, String level, String category, Map<String, String> data) {
+  void _addItems(
+    Batch batch,
+    String level,
+    String category,
+    Map<String, String> data,
+  ) {
     data.forEach((word, trans) {
       batch.insert('vocabulary', {
         'word': word,
@@ -79,8 +204,10 @@ class DatabaseHelper {
     });
   }
 
-  // باقي الدوال البرمجية (insertWord, deleteWord, getWordsByCategoryAndLevel)
-  Future<List<Map<String, dynamic>>> getWordsByCategoryAndLevel(String category, String level) async {
+  Future<List<Map<String, dynamic>>> getWordsByCategoryAndLevel(
+    String category,
+    String level,
+  ) async {
     final db = await instance.database;
     return await db.query(
       'vocabulary',
@@ -89,7 +216,12 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> insertWord(String word, String translation, String category, {String level = "Custom"}) async {
+  Future<int> insertWord(
+    String word,
+    String translation,
+    String category, {
+    String level = "Custom",
+  }) async {
     final db = await instance.database;
     return await db.insert('vocabulary', {
       'word': word,
@@ -102,5 +234,10 @@ class DatabaseHelper {
   Future<int> deleteWord(int id) async {
     final db = await instance.database;
     return await db.delete('vocabulary', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<List<Map<String, dynamic>>> getAllWords() async {
+    final db = await instance.database;
+    return await db.query('vocabulary');
   }
 }
