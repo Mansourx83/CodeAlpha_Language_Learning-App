@@ -27,7 +27,10 @@ class VocabularyScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F2F5),
       appBar: AppBar(
-        title: const Text('Vocabulary', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Vocabulary',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: Colors.black,
@@ -50,17 +53,32 @@ class VocabularyScreen extends StatelessWidget {
               ],
             ),
             child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10,
+              ),
               title: Text(
                 words[index]['word']!,
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF1A1C1E)),
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1A1C1E),
+                ),
               ),
               subtitle: Text(
                 words[index]['translation']!,
-                style: const TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
               trailing: IconButton(
-                icon: const Icon(Icons.volume_up_rounded, color: Color(0xFF4A90E2), size: 28),
+                icon: const Icon(
+                  Icons.volume_up_rounded,
+                  color: Color(0xFF4A90E2),
+                  size: 28,
+                ),
                 onPressed: () => _speak(words[index]['word']!),
               ),
             ),

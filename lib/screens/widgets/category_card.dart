@@ -1,13 +1,19 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:language_learning/screens/vocabulary_screen.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
   final IconData icon;
   final List<Color> gradient;
 
-  const CategoryCard({super.key, required this.title, required this.icon, required this.gradient});
+  const CategoryCard({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.gradient,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,14 @@ class CategoryCard extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            if (title == 'Vocabulary') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => VocabularyScreen()),
+              );
+            }
+          },
           borderRadius: BorderRadius.circular(32),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
@@ -50,7 +63,7 @@ class CategoryCard extends StatelessWidget {
                   title,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                    fontSize: 18, 
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                     letterSpacing: 0.5,
