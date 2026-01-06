@@ -148,6 +148,8 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFF),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const BackButton(color: Colors.black),

@@ -24,6 +24,8 @@ class QuizLevelScreen extends StatelessWidget {
         slivers: [
           // AppBar جذاب ومنحني
           SliverAppBar(
+            scrolledUnderElevation: 0,
+
             expandedHeight: 120,
             floating: true,
             pinned: true,
